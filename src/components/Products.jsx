@@ -3,6 +3,9 @@ import styled from 'styled-components';
 
 import Product from './Product';
 
+import { useProducts } from '../contexts/ProductContext';
+import { useCart } from '../contexts/CartContext';
+
 const ScProducts = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -17,11 +20,14 @@ const ScProducts = styled.section`
   }
 `;
 
-const Products = (props) => {
+const Products = () => {
+  const { products } = useProducts();
+  const { addItem } = useCart();
+
   return (
     <ScProducts>
-      {props.products.map((product) => (
-        <Product key={product.id} product={product} addItem={props.addItem} />
+      {products.map((product) => (
+        <Product key={product.id} product={product} addItem={addItem} />
       ))}
     </ScProducts>
   );
